@@ -1,4 +1,4 @@
-import TypingAnimation from "@/Components/typingAnimation";
+import TypingAnimation from "@/app/(home)/typingAnimation";
 
 export default function Home() {
   return (

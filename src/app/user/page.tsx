@@ -1,23 +1,18 @@
-"use client";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { getSession } from "@auth0/nextjs-auth0";
+import { redirect } from "next/navigation";
+import Searchbar from "./searchbar";
 
-export default function User() {
-  const { user, error, isLoading } = useUser();
+export default async function User() {
+  const session = await getSession(); // Awaiting the session properly
+  const user = session?.user;
 
-  if (user) {
-    console.log(user);
-    return (
-      <div>
-        <h2>Profile</h2>
-        {user.name && <p>Name: {user.name}</p>}
-        {user.nickname && <p>Nickname: {user.nickname}</p>}
-      </div>
-    );
+  if (!user) {
+    redirect("/");
   }
+
   return (
-    <div>
-      <h2>Profile</h2>
-      <p>Loading...</p>
-    </div>
+    <>
+      <Searchbar />
+    </>
   );
 }

@@ -1,6 +1,12 @@
+"use client";
 import Link from "next/link";
+import NavbarRight from "./navbarRight";
 
-export default async function Navbar() {
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
+
+export default function Navbar() {
+  const pathname = usePathname();
   return (
     <nav className="bg-[#0C0C0C] text-gray-400 shadow-md">
       <div className="container px-4 py-3 flex justify-between items-center">
@@ -20,33 +26,30 @@ export default async function Navbar() {
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-6">
             <Link href="/about">
-              <div className="cursor-pointer hover:text-gray-100 transition">
+              <div
+                className={clsx(
+                  "cursor-pointer hover:text-gray-100 transition",
+                  { " text-blue-600": pathname === "/about" }
+                )}
+              >
                 About
               </div>
             </Link>
             <Link href="/contact">
-              <div className="cursor-pointer hover:text-gray-100 transition">
+              <div
+                className={clsx(
+                  "cursor-pointer hover:text-gray-100 transition",
+                  { " text-blue-600": pathname === "/contact" }
+                )}
+              >
                 Contact
               </div>
             </Link>
           </div>
         </div>
 
-        {/* Right Side: Try for Free Button */}
-        <div>
-          <a href="/api/auth/login">
-            <div className="bg-gray-200 text-black px-4 py-2 rounded-md cursor-pointer transition hover:bg-gray-400">
-              Try for Free
-            </div>
-          </a>
-        </div>
-        <div>
-          <a href="/api/auth/logout">
-            <div className="bg-gray-200 text-black px-4 py-2 rounded-md cursor-pointer transition hover:bg-gray-400">
-              Logout
-            </div>
-          </a>
-        </div>
+        {/* Right Side: Buttons */}
+        <NavbarRight />
       </div>
     </nav>
   );
